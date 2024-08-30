@@ -19,7 +19,7 @@ jobs:
       - name: Check for changes
         run: |
           cd cv
-          git checkout main
+          git checkout -b main
           git fetch origin
           git status
           diff=$(git rev-list HEAD...origin/main --count)
