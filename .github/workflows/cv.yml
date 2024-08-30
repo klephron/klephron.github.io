@@ -16,26 +16,13 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Check for changes
+      - name: Check for changes, commit and push changes
         run: |
           cd cv
-          git checkout -b main
-          git fetch origin
-          git status
-          diff=$(git rev-list HEAD...origin/main --count)
-          if [ $diff -ne 0 ]; then
-            echo "Submodule has changes"
-            git pull origin
-            exit 1
-          else
-            echo "No changes detected"
-          fi
-        id: check_changes
-        continue-on-error: true
+          git checkout main
 
-      - name: Commit and push changes
-        if: steps.check_changes.outcome == 'failure'
-        run: |
+          cd ..
+
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
