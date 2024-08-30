@@ -16,17 +16,14 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Pull changes for submodule
-        run: |
-          cd cv
-          git checkout main
-          git pull origin main
-
       - name: Check for changes
         run: |
           cd cv
-          if [ -n "$(git status --porcelain)" ]; then
+          git fetch origin
+          diff=$(git rev-list HEAD...origin/main --count)
+          if [ $diff -ne 0 ]; then
             echo "Submodule has changes"
+            git pull origin
             exit 1
           else
             echo "No changes detected"
