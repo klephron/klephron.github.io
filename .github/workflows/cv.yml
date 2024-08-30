@@ -19,12 +19,13 @@ jobs:
       - name: Check for changes
         run: |
           cd cv
+          git checkout main
           git fetch origin
           git status
           diff=$(git rev-list HEAD...origin/main --count)
           if [ $diff -ne 0 ]; then
             echo "Submodule has changes"
-            git pull --ff-only origin
+            git pull origin
             exit 1
           else
             echo "No changes detected"
