@@ -1,4 +1,4 @@
-name: Fetch update submodule
+name: fetch-update-submodule
 
 on:
   workflow_dispatch:
@@ -20,7 +20,6 @@ jobs:
         run: |
           cd cv
           git checkout main
-
           cd ..
 
           git config --global user.name "github-actions[bot]"
